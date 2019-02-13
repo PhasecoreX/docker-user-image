@@ -3,10 +3,10 @@ Base images that step down from root into a runtime-defined non-privileged user
 
 This repository is used as the template for building many of my `user-[IMAGE]` images. Currently we have the following images set up with multi-arch support:
 
-- `apline`
-- `debian`
-- `python`
-- `ubuntu`
+- [`alpine`](https://git.pcxserver.com/PhasecoreX/docker-user-alpine) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-alpine/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-alpine)
+- [`debian`](https://git.pcxserver.com/PhasecoreX/docker-user-debian) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-debian/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-debian)
+- [`python`](https://git.pcxserver.com/PhasecoreX/docker-user-python) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-python/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-python)
+- [`ubuntu`](https://git.pcxserver.com/PhasecoreX/docker-user-ubuntu) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-ubuntu/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-ubuntu)
 
 Just replace `[IMAGE]` in the below commands with any of the above image names.
 
