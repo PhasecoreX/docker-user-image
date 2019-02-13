@@ -1,0 +1,22 @@
+ARG ARCH_IMG
+FROM ${ARCH_IMG}
+
+MAINTAINER Ryan Foster <phasecorex@gmail.com>
+
+ARG QEMU_ARCH
+COPY --from=phasecorex/qemu-static-files:latest /usr/bin/qemu-${QEMU_ARCH}-static /usr/bin/
+
+RUN set -eux; \
+    apk add --no-cache su-exec shadow tzdata; \
+    groupadd -f -g 1000 docker; \
+    useradd --no-log-init --shell /bin/bash -u 1000 -g 1000 -d /config -o -c "" -m docker; \
+    mkdir -p \
+        /app \
+        /config \
+        /data;
+
+COPY user-entrypoint.alpine.sh /bin/user-entrypoint
+
+ENTRYPOINT ["user-entrypoint"]
+
+CMD ["sh"]
