@@ -1,10 +1,15 @@
+FROM alpine:latest as downloader
+RUN apk add wget
+ARG QEMU_ARCH
+RUN wget -N -P /qemu https://github.com/multiarch/qemu-user-static/releases/latest/download/x86_64_qemu-${QEMU_ARCH}-static.tar.gz
+RUN tar -xvf /qemu/x86_64_qemu-${QEMU_ARCH}-static.tar.gz -C /qemu
+
 ARG ARCH_IMG
 FROM ${ARCH_IMG}
 
 MAINTAINER Ryan Foster <phasecorex@gmail.com>
 
-ARG QEMU_ARCH
-COPY --from=phasecorex/qemu-static-files:latest /usr/bin/qemu-${QEMU_ARCH}-static /usr/bin/
+COPY --from=downloader /qemu/qemu-*-static /usr/bin/
 
 RUN set -eux; \
     apk add --no-cache su-exec shadow tzdata; \
