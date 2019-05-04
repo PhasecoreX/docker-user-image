@@ -1,8 +1,6 @@
 ARG ARCH_IMG
 FROM ${ARCH_IMG}
 
-MAINTAINER Ryan Foster <phasecorex@gmail.com>
-
 RUN set -eux; \
     apk add --no-cache su-exec shadow tzdata; \
     groupadd -f -g 1000 docker; \
@@ -17,3 +15,5 @@ COPY user-entrypoint.alpine.sh /bin/user-entrypoint
 ENTRYPOINT ["user-entrypoint"]
 
 CMD ["sh"]
+
+LABEL maintainer="Ryan Foster <phasecorex@gmail.com>"

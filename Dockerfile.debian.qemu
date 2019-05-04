@@ -8,8 +8,6 @@ RUN tar -xvf /qemu/x86_64_qemu-${QEMU_ARCH}-static.tar.gz -C /qemu
 
 FROM ${ARCH_IMG}
 
-MAINTAINER Ryan Foster <phasecorex@gmail.com>
-
 COPY --from=downloader /qemu/qemu-*-static /usr/bin/
 
 ENV GOSU_VERSION 1.11
@@ -70,3 +68,5 @@ COPY user-entrypoint.debian.sh /bin/user-entrypoint
 ENTRYPOINT ["user-entrypoint"]
 
 CMD ["bash"]
+
+LABEL maintainer="Ryan Foster <phasecorex@gmail.com>"

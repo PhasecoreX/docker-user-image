@@ -1,8 +1,6 @@
 ARG ARCH_IMG
 FROM ${ARCH_IMG}
 
-MAINTAINER Ryan Foster <phasecorex@gmail.com>
-
 ENV GOSU_VERSION 1.11
 RUN set -eux; \
 # save list of currently installed packages for later so we can clean up
@@ -61,3 +59,5 @@ COPY user-entrypoint.debian.sh /bin/user-entrypoint
 ENTRYPOINT ["user-entrypoint"]
 
 CMD ["bash"]
+
+LABEL maintainer="Ryan Foster <phasecorex@gmail.com>"
