@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -e
 
 if [ $(id -u) -ne 0 ]; then
@@ -32,4 +32,5 @@ chown docker:docker /config
 chown docker:docker /data
 
 echo "Starting with UID/GID: $PUID/$PGID"
+[[ $(which gosu) ]] && exec gosu docker "$@"
 exec su-exec docker "$@"

@@ -63,7 +63,7 @@ RUN set -eux; \
         rm -rf /var/lib/apt/lists/*; \
     fi
 
-COPY user-entrypoint.debian.sh /bin/user-entrypoint
+COPY user-entrypoint.sh /bin/user-entrypoint
 
 ENTRYPOINT ["user-entrypoint"]
 
