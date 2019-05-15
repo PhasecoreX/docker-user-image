@@ -2,9 +2,9 @@ ARG ARCH_IMG
 FROM ${ARCH_IMG}
 
 RUN set -eux; \
-    apk add --no-cache bash shadow su-exec tzdata; \
+    apk add --no-cache shadow su-exec tzdata; \
     groupadd -g 1000 docker; \
-    useradd --no-log-init -s /bin/bash -u 1000 -g 1000 -d /config -o -c "" -m docker; \
+    useradd --no-log-init -s /bin/sh -u 1000 -g 1000 -d /config -o -c "" -m docker; \
     mkdir -p \
         /app \
         /config \
@@ -14,6 +14,6 @@ COPY user-entrypoint.sh /bin/user-entrypoint
 
 ENTRYPOINT ["user-entrypoint"]
 
-CMD ["bash"]
+CMD ["sh"]
 
 LABEL maintainer="Ryan Foster <phasecorex@gmail.com>"
