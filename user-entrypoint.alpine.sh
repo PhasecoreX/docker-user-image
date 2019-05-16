@@ -32,5 +32,4 @@ chown docker:docker /config
 chown docker:docker /data
 
 echo "Starting with UID/GID: $PUID/$PGID"
-[[ $(which gosu) ]] && exec gosu docker "$@"
 exec su-exec docker "$@"
