@@ -1,6 +1,8 @@
 # User Images
 Base images that step down from root into a runtime-defined non-privileged user
 
+[![Donate to support my code](https://img.shields.io/badge/Paypal-Donate-blue.svg)](https://paypal.me/pcx)
+
 This repository is used as the template for building many of my `user-[IMAGE]` images. Currently we have the following images set up with multi-arch support:
 
 - [`alpine`](https://git.pcxserver.com/PhasecoreX/docker-user-alpine) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-alpine/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-alpine)
