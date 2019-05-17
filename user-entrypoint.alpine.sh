@@ -11,6 +11,7 @@ PGID=${PGID:-$PUID}
 
 if [ ! -z ${TZ+x} ]; then
     if [ -f "/usr/share/zoneinfo/$TZ" ]; then
+        rm -f /etc/localtime
         cp /usr/share/zoneinfo/$TZ /etc/localtime
         echo "$TZ" > /etc/timezone
         echo "Timezone set to $TZ"
