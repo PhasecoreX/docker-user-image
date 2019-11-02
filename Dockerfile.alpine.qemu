@@ -19,7 +19,7 @@ RUN set -eux; \
         /config \
         /data;
 
-COPY user-entrypoint.alpine.sh /bin/user-entrypoint
+COPY user-entrypoint.sh /bin/user-entrypoint
 
 ENTRYPOINT ["user-entrypoint"]
 
