@@ -2,8 +2,8 @@ ARG ARCH_IMG
 
 FROM ${ARCH_IMG}
 
-ARG QEMU_ARCH
-COPY --from=phasecorex/su-exec /su-exec-${QEMU_ARCH} /usr/local/bin/su-exec
+ARG ARCH
+COPY --from=phasecorex/su-exec /su-exec-${ARCH} /usr/local/bin/su-exec
 
 RUN set -eux; \
 # add user and group

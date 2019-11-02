@@ -8,8 +8,8 @@ RUN tar -xvf /qemu/x86_64_qemu-${QEMU_ARCH}-static.tar.gz -C /qemu
 
 FROM ${ARCH_IMG}
 
-ARG QEMU_ARCH
-COPY --from=phasecorex/su-exec /su-exec-${QEMU_ARCH} /usr/local/bin/su-exec
+ARG ARCH
+COPY --from=phasecorex/su-exec /su-exec-${ARCH} /usr/local/bin/su-exec
 COPY --from=downloader /qemu/qemu-*-static /usr/bin/
 
 RUN set -eux; \
