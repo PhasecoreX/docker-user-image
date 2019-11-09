@@ -15,7 +15,6 @@ RUN set -eux; \
     groupadd -g 1000 docker; \
     useradd --no-log-init -s /bin/sh -u 1000 -g 1000 -d /config -o -c "" -m docker; \
     mkdir -p \
-        /app \
         /config \
         /data;
 

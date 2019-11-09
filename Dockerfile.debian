@@ -10,7 +10,6 @@ RUN set -eux; \
     groupadd -f -g 1000 docker; \
     useradd --no-log-init --shell /bin/bash -u 1000 -g 1000 -d /config -o -c "" -m docker; \
     mkdir -p \
-        /app \
         /config \
         /data; \
 # add timezone functionality if missing
