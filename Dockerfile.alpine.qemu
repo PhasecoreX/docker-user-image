@@ -1,4 +1,4 @@
-ARG ARCH_IMG
+ARG BASE_IMG
 
 FROM alpine:latest as downloader
 RUN apk add wget
@@ -6,7 +6,9 @@ ARG QEMU_ARCH
 RUN wget -N -P /qemu https://github.com/multiarch/qemu-user-static/releases/latest/download/x86_64_qemu-${QEMU_ARCH}-static.tar.gz
 RUN tar -xvf /qemu/x86_64_qemu-${QEMU_ARCH}-static.tar.gz -C /qemu
 
-FROM ${ARCH_IMG}
+
+
+FROM ${BASE_IMG}
 
 COPY --from=downloader /qemu/qemu-*-static /usr/bin/
 
