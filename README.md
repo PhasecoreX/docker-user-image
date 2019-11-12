@@ -5,10 +5,10 @@ Base images that step down from root into a runtime-defined non-privileged user
 
 This repository is used as the template for building many of my `user-[IMAGE]` images. Currently we have the following images set up with multi-arch support:
 
-- [`alpine`](https://git.pcxserver.com/PhasecoreX/docker-user-alpine) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-alpine/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-alpine)
-- [`debian`](https://git.pcxserver.com/PhasecoreX/docker-user-debian) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-debian/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-debian)
-- [`python`](https://git.pcxserver.com/PhasecoreX/docker-user-python) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-python/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-python)
-- [`ubuntu`](https://git.pcxserver.com/PhasecoreX/docker-user-ubuntu) [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-ubuntu/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-ubuntu)
+- [`alpine`](https://github.com/PhasecoreX/docker-user-alpine) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-alpine/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-alpine)
+- [`debian`](https://github.com/PhasecoreX/docker-user-debian) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-debian/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-debian)
+- [`python`](https://github.com/PhasecoreX/docker-user-python) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-python/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-python)
+- [`ubuntu`](https://github.com/PhasecoreX/docker-user-ubuntu) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-ubuntu/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-ubuntu)
 
 ## For Developers
 Simply have your image use this image as its base image:
