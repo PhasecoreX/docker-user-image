@@ -35,7 +35,7 @@ Pulling the base image will automatically pull the correct architecture for your
 - `-arm32v7`
 - `-arm64v8`
 
-For example, `phasecorex/user-alpine:edge-arm32v7` will get the alpine edge image built for an arm device (Raspberry Pi). Additionally, the appropriate qemu static files have been included, so you do not need to include them if you're planning on building multi-arch images in an x64 build environment!
+For example, `phasecorex/user-alpine:edge-arm32v7` will get the alpine edge image built for an arm device (Raspberry Pi).
 
 ### Custom Entrypoints
 This image uses an entrypoint script to do all of the setup at runtime. If your image utilizes an entrypoint script as well, you will need to prepend this images entrypoint (`user-entrypoint`) to it:
