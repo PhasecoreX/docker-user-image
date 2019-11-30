@@ -68,3 +68,11 @@ docker run -it -e TZ=America/Detroit -e PUID=1000 phasecorex/user-[IMAGE]
 ```
 This helps with having correct times in process logs.
 
+### Niceness
+By default, the process will run at the niceness that Docker itself is running at (usually zero). If you would like to change that, simply define the `NICENESS` environment variable:
+```
+docker run -it -e TZ=America/Detroit -e PUID=1000 -e NICENESS=10 phasecorex/user-[IMAGE]
+docker run -it -e TZ=America/Detroit -e PUID=1000 -e NICENESS=-10 --cap-add=SYS_NICE phasecorex/user-[IMAGE]
+```
+Niceness has a range of -20 (highest priority, least nice to other processes) to 19 (lowest priority, very nice to other processes). Setting this to a value less than the default (higher priority) will require that you start the container with `--cap-add=SYS_NICE`. Setting it above the default will not need that capability set.
+
