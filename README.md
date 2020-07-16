@@ -1,7 +1,8 @@
 # User Images
 Base images that step down from root into a runtime-defined non-privileged user
 
-[![Donate to support my code](https://img.shields.io/badge/Paypal-Donate-blue.svg)](https://paypal.me/pcx)
+[![BuyMeACoffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange)](https://buymeacoff.ee/phasecorex)
+[![PayPal](https://img.shields.io/badge/paypal-donate-blue)](https://paypal.me/pcx)
 
 This repository is used as the template for building many of my `user-[IMAGE]` images. Currently we have the following images set up with multi-arch support:
 
