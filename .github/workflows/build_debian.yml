@@ -17,6 +17,9 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_SLUG: phasecorex/user-debian
+      GHCR_SLUG: ghcr.io/phasecorex/user-debian
     steps:
       -
         name: Checkout
@@ -30,29 +33,33 @@ jobs:
             const repo = await github.repos.get(context.repo)
             return repo.data
       -
-        name: Prepare
-        id: prep
-        run: |
-          DOCKER_IMAGE=phasecorex/user-debian
-          echo ::set-output name=docker_image::${DOCKER_IMAGE}
-          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
+        name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+      -
         name: Build and push stretch
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile.debian
+          file: ./Dockerfile
           platforms: linux/amd64,linux/arm/v5,linux/arm/v6,linux/arm/v7,linux/arm64
-          push: false
-          tags: ${{ steps.prep.outputs.docker_image }}:stretch,ghcr.io/${{ steps.prep.outputs.docker_image }}:stretch
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ${{ env.GHCR_SLUG }}:stretch
+          build-args: |
+            BASE_IMG=debian:stretch
           cache-from: |
-            ${{ steps.prep.outputs.docker_image }}:stretch
+            ${{ env.GHCR_SLUG }}:stretch
           labels: |
             maintainer=Ryan Foster <phasecorex@gmail.com>
             org.opencontainers.image.title=${{ fromJson(steps.repo.outputs.result).name }}
@@ -60,6 +67,5 @@ jobs:
             org.opencontainers.image.url=${{ fromJson(steps.repo.outputs.result).html_url }}
             org.opencontainers.image.source=${{ fromJson(steps.repo.outputs.result).clone_url }}
             org.opencontainers.image.version=stretch
-            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.licenses=${{ fromJson(steps.repo.outputs.result).license.spdx_id }}
