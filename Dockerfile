@@ -1,15 +1,16 @@
 ARG BASE_IMG
 FROM ${BASE_IMG} as builder
 
-RUN set -eux; \
-# get build deps
-    apt-get update; \
-    apt-get install -y --no-install-recommends ca-certificates curl gcc libc6-dev make; \
-# build su-exec
-	curl -L https://github.com/ncopa/su-exec/archive/212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz | tar xvz; \
-	cd su-exec-*; \
-    make su-exec; \
-    mv su-exec /su-exec
+ADD https://github.com/ncopa/su-exec/archive/212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz /
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends make gcc libc6-dev
+    
+RUN tar xvzf 212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz
+
+RUN cd su-exec-* && \
+    make su-exec && \
+    mv su-exec /
 
 
 
