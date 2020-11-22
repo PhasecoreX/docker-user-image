@@ -4,13 +4,17 @@ on:
   push:
     branches:
       - 'master'
-    paths-ignore:
-      - '**.md'
+    paths:
+      - 'user-entrypoint.sh'
+      - 'Dockerfile.alpine'
+      - '.github/workflows/build_alpine.yml'
   pull_request:
     branches:
       - 'master'
-    paths-ignore:
-      - '**.md'
+    paths:
+      - 'user-entrypoint.sh'
+      - 'Dockerfile.alpine'
+      - '.github/workflows/build_alpine.yml'
   repository_dispatch:
     types: [alpine_image_update]
 
