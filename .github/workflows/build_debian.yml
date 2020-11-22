@@ -19,16 +19,60 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TITLE: User Debian
-      DOCKERHUB_SLUG: phasecorex/user-debian
-      GHCR_SLUG: ghcr.io/phasecorex/user-debian
     strategy:
       matrix:
         include:
           -
+            base-image: debian:8-slim
+            tags: |
+              ghcr.io/phasecorex/user-debian:8-slim
+              ghcr.io/phasecorex/user-debian:jessie-slim
+            platforms: |
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v6
+              linux/arm/v7
+              linux/386
+          -
+            base-image: debian:8
+            tags: |
+              ghcr.io/phasecorex/user-debian:8
+              ghcr.io/phasecorex/user-debian:jessie
+            platforms: |
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v6
+              linux/arm/v7
+              linux/386
+          -
+            base-image: debian:9-slim
+            tags: |
+              ghcr.io/phasecorex/user-debian:9-slim
+              ghcr.io/phasecorex/user-debian:stretch-slim
+            platforms: |
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+          -
+            base-image: debian:9
+            tags: |
+              ghcr.io/phasecorex/user-debian:9
+              ghcr.io/phasecorex/user-debian:stretch
+            platforms: |
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+          -
             base-image: debian:10-slim
             tags: |
-              10-slim
-              buster-slim
+              ghcr.io/phasecorex/user-debian:10-slim
+              ghcr.io/phasecorex/user-debian:buster-slim
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -39,9 +83,9 @@ jobs:
           -
             base-image: debian:10
             tags: |
-              latest
-              10
-              buster
+              ghcr.io/phasecorex/user-debian:latest
+              ghcr.io/phasecorex/user-debian:10
+              ghcr.io/phasecorex/user-debian:buster
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -84,11 +128,11 @@ jobs:
           platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.GHCR_SLUG }}:${{ matrix.tags }}
+            ${{ matrix.tags }}
           build-args: |
             BASE_IMG=${{ matrix.base-image }}
           cache-from: |
-            ${{ env.GHCR_SLUG }}:${{ matrix.tags }}
+            ${{ matrix.tags }}
           labels: |
             maintainer=${{ github.repository_owner }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
