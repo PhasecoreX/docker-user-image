@@ -32,7 +32,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.10
             platforms: |
               linux/amd64
-              linux/arm/v5
               linux/arm/v6
               linux/arm/v7
               linux/arm64
@@ -45,7 +44,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.11
             platforms: |
               linux/amd64
-              linux/arm/v5
               linux/arm/v6
               linux/arm/v7
               linux/arm64
@@ -58,7 +56,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.9
             platforms: |
               linux/amd64
-              linux/arm/v5
               linux/arm/v6
               linux/arm/v7
               linux/arm64
@@ -71,7 +68,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:edge
             platforms: |
               linux/amd64
-              linux/arm/v5
               linux/arm/v6
               linux/arm/v7
               linux/arm64
@@ -85,7 +81,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.12
             platforms: |
               linux/amd64
-              linux/arm/v5
               linux/arm/v6
               linux/arm/v7
               linux/arm64
