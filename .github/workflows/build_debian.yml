@@ -21,6 +21,34 @@ jobs:
       TITLE: User Debian
       DOCKERHUB_SLUG: phasecorex/user-debian
       GHCR_SLUG: ghcr.io/phasecorex/user-debian
+    strategy:
+      matrix:
+        include:
+          -
+            base-image: debian:10-slim
+            tags: |
+              ${{ env.GHCR_SLUG }}:10-slim
+              ${{ env.GHCR_SLUG }}:buster-slim
+            platforms: |
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+          -
+            base-image: debian:10
+            tags: |
+              ${{ env.GHCR_SLUG }}:latest
+              ${{ env.GHCR_SLUG }}:10
+              ${{ env.GHCR_SLUG }}:buster
+            platforms: |
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
     steps:
       -
         name: Checkout
@@ -53,14 +81,12 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm/v5,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386
+          platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ env.GHCR_SLUG }}:stretch
+          tags: ${{ matrix.tags }}
           build-args: |
-            BASE_IMG=debian:stretch
-          cache-from: |
-            ${{ env.GHCR_SLUG }}:stretch
+            BASE_IMG=${{ matrix.base-image }}
+          cache-from: ${{ matrix.tags }}
           labels: |
             maintainer=${{ github.repository_owner }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
