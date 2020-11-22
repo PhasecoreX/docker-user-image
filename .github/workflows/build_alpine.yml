@@ -1,4 +1,4 @@
-name: build_debian
+name: build_alpine
 
 on:
   push:
@@ -12,43 +12,20 @@ on:
     paths-ignore:
       - '**.md'
   repository_dispatch:
-    types: [debian_image_update]
+    types: [alpine_image_update]
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      TITLE: User Debian
+      TITLE: User Alpine
     strategy:
       matrix:
         include:
           -
-            base-image: debian:8-slim
+            base-image: alpine:3.10
             tags: |
-              ghcr.io/phasecorex/user-debian:8-slim
-              ghcr.io/phasecorex/user-debian:jessie-slim
-            platforms: |
-              linux/amd64
-              linux/arm/v5
-              linux/arm/v6
-              linux/arm/v7
-              linux/386
-          -
-            base-image: debian:8
-            tags: |
-              ghcr.io/phasecorex/user-debian:8
-              ghcr.io/phasecorex/user-debian:jessie
-            platforms: |
-              linux/amd64
-              linux/arm/v5
-              linux/arm/v6
-              linux/arm/v7
-              linux/386
-          -
-            base-image: debian:9-slim
-            tags: |
-              ghcr.io/phasecorex/user-debian:9-slim
-              ghcr.io/phasecorex/user-debian:stretch-slim
+              ghcr.io/phasecorex/user-alpine:3.10
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -56,11 +33,12 @@ jobs:
               linux/arm/v7
               linux/arm64
               linux/386
+              linux/ppc64le
+              linux/s390x
           -
-            base-image: debian:9
+            base-image: alpine:3.11
             tags: |
-              ghcr.io/phasecorex/user-debian:9
-              ghcr.io/phasecorex/user-debian:stretch
+              ghcr.io/phasecorex/user-alpine:3.11
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -68,11 +46,12 @@ jobs:
               linux/arm/v7
               linux/arm64
               linux/386
+              linux/ppc64le
+              linux/s390x
           -
-            base-image: debian:10-slim
+            base-image: alpine:3.9
             tags: |
-              ghcr.io/phasecorex/user-debian:10-slim
-              ghcr.io/phasecorex/user-debian:buster-slim
+              ghcr.io/phasecorex/user-alpine:3.9
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -80,12 +59,12 @@ jobs:
               linux/arm/v7
               linux/arm64
               linux/386
+              linux/ppc64le
+              linux/s390x
           -
-            base-image: debian:10
+            base-image: alpine:edge
             tags: |
-              ghcr.io/phasecorex/user-debian:latest
-              ghcr.io/phasecorex/user-debian:10
-              ghcr.io/phasecorex/user-debian:buster
+              ghcr.io/phasecorex/user-alpine:edge
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -93,6 +72,22 @@ jobs:
               linux/arm/v7
               linux/arm64
               linux/386
+              linux/ppc64le
+              linux/s390x
+          -
+            base-image: alpine:3.12
+            tags: |
+              ghcr.io/phasecorex/user-alpine:latest
+              ghcr.io/phasecorex/user-alpine:3.12
+            platforms: |
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
     steps:
       -
         name: Checkout
@@ -124,7 +119,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile.debian
+          file: ./Dockerfile.alpine
           platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: |

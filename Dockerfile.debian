@@ -1,8 +1,22 @@
 ARG BASE_IMG
+FROM ${BASE_IMG} as builder
+
+ADD https://github.com/ncopa/su-exec/archive/212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz /
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends make gcc libc6-dev
+    
+RUN tar xvzf 212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz
+
+RUN cd su-exec-* && \
+    make su-exec && \
+    mv su-exec /
+
+
+
 FROM ${BASE_IMG}
 
-ARG ARCH
-COPY --from=phasecorex/su-exec /su-exec-${ARCH} /usr/local/bin/su-exec
+COPY --from=builder /su-exec /bin/su-exec
 
 RUN set -eux; \
 # add user and group
@@ -25,5 +39,3 @@ COPY user-entrypoint.sh /bin/user-entrypoint
 ENTRYPOINT ["user-entrypoint"]
 
 CMD ["bash"]
-
-LABEL maintainer="Ryan Foster <phasecorex@gmail.com>"

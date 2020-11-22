@@ -14,5 +14,3 @@ COPY user-entrypoint.sh /bin/user-entrypoint
 ENTRYPOINT ["user-entrypoint"]
 
 CMD ["sh"]
-
-LABEL maintainer="Ryan Foster <phasecorex@gmail.com>"
