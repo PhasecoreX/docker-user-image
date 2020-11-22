@@ -27,8 +27,8 @@ jobs:
           -
             base-image: debian:10-slim
             tags: |
-              ${{ env.GHCR_SLUG }}:10-slim
-              ${{ env.GHCR_SLUG }}:buster-slim
+              10-slim
+              buster-slim
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -39,9 +39,9 @@ jobs:
           -
             base-image: debian:10
             tags: |
-              ${{ env.GHCR_SLUG }}:latest
-              ${{ env.GHCR_SLUG }}:10
-              ${{ env.GHCR_SLUG }}:buster
+              latest
+              10
+              buster
             platforms: |
               linux/amd64
               linux/arm/v5
@@ -83,10 +83,12 @@ jobs:
           file: ./Dockerfile
           platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ matrix.tags }}
+          tags: |
+            ${{ env.GHCR_SLUG }}:${{ matrix.tags }}
           build-args: |
             BASE_IMG=${{ matrix.base-image }}
-          cache-from: ${{ matrix.tags }}
+          cache-from: |
+            ${{ env.GHCR_SLUG }}:${{ matrix.tags }}
           labels: |
             maintainer=${{ github.repository_owner }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
