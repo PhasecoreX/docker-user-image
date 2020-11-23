@@ -3,20 +3,21 @@ name: build_alpine
 on:
   push:
     branches:
-      - 'master'
+      - master
     paths:
-      - 'user-entrypoint.sh'
-      - 'Dockerfile.alpine'
-      - '.github/workflows/build_alpine.yml'
+      - user-entrypoint.sh
+      - Dockerfile.alpine
+      - .github/workflows/build_alpine.yml
   pull_request:
     branches:
-      - 'master'
+      - master
     paths:
-      - 'user-entrypoint.sh'
-      - 'Dockerfile.alpine'
-      - '.github/workflows/build_alpine.yml'
+      - user-entrypoint.sh
+      - Dockerfile.alpine
+      - .github/workflows/build_alpine.yml
   repository_dispatch:
-    types: [alpine_image_update]
+    types:
+      - alpine_image_update
 
 jobs:
   docker:
@@ -26,99 +27,93 @@ jobs:
     strategy:
       matrix:
         include:
-          -
-            base-image: alpine:3.10
-            tags: |
-              ghcr.io/phasecorex/user-alpine:3.10
-            platforms: |
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-          -
-            base-image: alpine:3.11
-            tags: |
-              ghcr.io/phasecorex/user-alpine:3.11
-            platforms: |
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-          -
-            base-image: alpine:3.9
-            tags: |
-              ghcr.io/phasecorex/user-alpine:3.9
-            platforms: |
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-          -
-            base-image: alpine:edge
-            tags: |
-              ghcr.io/phasecorex/user-alpine:edge
-            platforms: |
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-          -
-            base-image: alpine:3.12
-            tags: |
-              ghcr.io/phasecorex/user-alpine:latest
-              ghcr.io/phasecorex/user-alpine:3.12
-            platforms: |
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
+          - base-image: alpine:edge
+            dockerfile: Dockerfile.alpine
+            tags:
+              - ghcr.io/phasecorex/user-alpine:edge
+            platforms:
+              - linux/amd64
+              - linux/arm/v6
+              - linux/arm/v7
+              - linux/arm64
+              - linux/386
+              - linux/ppc64le
+              - linux/s390x
+          - base-image: alpine:3.12
+            dockerfile: Dockerfile.alpine
+            tags:
+              - ghcr.io/phasecorex/user-alpine:3.12
+              - ghcr.io/phasecorex/user-alpine:latest
+            platforms:
+              - linux/amd64
+              - linux/arm/v6
+              - linux/arm/v7
+              - linux/arm64
+              - linux/386
+              - linux/ppc64le
+              - linux/s390x
+          - base-image: alpine:3.11
+            dockerfile: Dockerfile.alpine
+            tags:
+              - ghcr.io/phasecorex/user-alpine:3.11
+            platforms:
+              - linux/amd64
+              - linux/arm/v6
+              - linux/arm/v7
+              - linux/arm64
+              - linux/386
+              - linux/ppc64le
+              - linux/s390x
+          - base-image: alpine:3.10
+            dockerfile: Dockerfile.alpine
+            tags:
+              - ghcr.io/phasecorex/user-alpine:3.10
+            platforms:
+              - linux/amd64
+              - linux/arm/v6
+              - linux/arm/v7
+              - linux/arm64
+              - linux/386
+              - linux/ppc64le
+              - linux/s390x
+          - base-image: alpine:3.9
+            dockerfile: Dockerfile.alpine
+            tags:
+              - ghcr.io/phasecorex/user-alpine:3.9
+            platforms:
+              - linux/amd64
+              - linux/arm/v6
+              - linux/arm/v7
+              - linux/arm64
+              - linux/386
+              - linux/ppc64le
+              - linux/s390x
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Repo metadata
+      - name: Repo metadata
         id: repo
         uses: actions/github-script@v3
         with:
           script: |
             const repo = await github.repos.get(context.repo)
             return repo.data
-      -
-        name: Set up QEMU
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      -
-        name: Login to GitHub Container Registry
+      - name: Login to GitHub Container Registry
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
-      -
-        name: Build and push ${{ matrix.base-image }}
+      - name: Build and push ${{ matrix.base-image }}
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile.alpine
+          file: ${{ matrix.dockerfile }}
           platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
