@@ -29,7 +29,6 @@ jobs:
         include:
           - base-image: alpine:edge
             dockerfile: Dockerfile.alpine
-            tags: ghcr.io/phasecorex/user-alpine:edge
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -38,22 +37,28 @@ jobs:
               linux/386
               linux/ppc64le
               linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:edge
+              docker.io/phasecorex/user-alpine:edge
+            cache-from: ghcr.io/phasecorex/user-alpine:edge
           - base-image: alpine:3.12
             dockerfile: Dockerfile.alpine
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-alpine:3.12
               ghcr.io/phasecorex/user-alpine:latest
-            platforms: |-
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
+              docker.io/phasecorex/user-alpine:3.12
+              docker.io/phasecorex/user-alpine:latest
+            cache-from: ghcr.io/phasecorex/user-alpine:3.12
           - base-image: alpine:3.11
             dockerfile: Dockerfile.alpine
-            tags: ghcr.io/phasecorex/user-alpine:3.11
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -62,9 +67,12 @@ jobs:
               linux/386
               linux/ppc64le
               linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:3.11
+              docker.io/phasecorex/user-alpine:3.11
+            cache-from: ghcr.io/phasecorex/user-alpine:3.11
           - base-image: alpine:3.10
             dockerfile: Dockerfile.alpine
-            tags: ghcr.io/phasecorex/user-alpine:3.10
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -73,9 +81,12 @@ jobs:
               linux/386
               linux/ppc64le
               linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:3.10
+              docker.io/phasecorex/user-alpine:3.10
+            cache-from: ghcr.io/phasecorex/user-alpine:3.10
           - base-image: alpine:3.9
             dockerfile: Dockerfile.alpine
-            tags: ghcr.io/phasecorex/user-alpine:3.9
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -84,6 +95,10 @@ jobs:
               linux/386
               linux/ppc64le
               linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:3.9
+              docker.io/phasecorex/user-alpine:3.9
+            cache-from: ghcr.io/phasecorex/user-alpine:3.9
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -105,6 +120,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
+      - name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push ${{ matrix.base-image }}
         uses: docker/build-push-action@v2
         with:
@@ -113,7 +134,7 @@ jobs:
           platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ matrix.tags }}
-          cache-from: ${{ matrix.tags }}
+          cache-from: ${{ matrix.cache-from }}
           build-args: |
             BASE_IMG=${{ matrix.base-image }}
           labels: |
