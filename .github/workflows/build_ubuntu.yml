@@ -1,4 +1,4 @@
-name: build_debian
+name: build_ubuntu
 
 on:
   push:
@@ -7,95 +7,73 @@ on:
     paths:
       - user-entrypoint.sh
       - Dockerfile.debian
-      - .github/workflows/build_debian.yml
+      - .github/workflows/build_ubuntu.yml
   pull_request:
     branches:
       - master
     paths:
       - user-entrypoint.sh
       - Dockerfile.debian
-      - .github/workflows/build_debian.yml
+      - .github/workflows/build_ubuntu.yml
   repository_dispatch:
     types:
-      - debian_image_update
+      - ubuntu_image_update
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      TITLE: User Debian
+      TITLE: User Ubuntu
     strategy:
       matrix:
         include:
-          - base-image: debian:10
+          - base-image: ubuntu:18.04
             dockerfile: Dockerfile.debian
             tags: |-
-              ghcr.io/phasecorex/user-debian:10
-              ghcr.io/phasecorex/user-debian:buster
-              ghcr.io/phasecorex/user-debian:latest
+              ghcr.io/phasecorex/user-ubuntu:18.04
+              ghcr.io/phasecorex/user-ubuntu:bionic
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
               linux/ppc64le
               linux/s390x
-          - base-image: debian:10-slim
+          - base-image: ubuntu:20.04
             dockerfile: Dockerfile.debian
             tags: |-
-              ghcr.io/phasecorex/user-debian:10-slim
-              ghcr.io/phasecorex/user-debian:buster-slim
+              ghcr.io/phasecorex/user-ubuntu:20.04
+              ghcr.io/phasecorex/user-ubuntu:focal
+              ghcr.io/phasecorex/user-ubuntu:latest
             platforms: |-
               linux/amd64
-              linux/arm/v5
+              linux/arm/v7
+              linux/arm64
+              linux/ppc64le
+              linux/s390x
+          - base-image: ubuntu:14.04
+            dockerfile: Dockerfile.debian
+            tags: |-
+              ghcr.io/phasecorex/user-ubuntu:14.04
+              ghcr.io/phasecorex/user-ubuntu:trusty
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+          - base-image: ubuntu:16.04
+            dockerfile: Dockerfile.debian
+            tags: |-
+              ghcr.io/phasecorex/user-ubuntu:16.04
+              ghcr.io/phasecorex/user-ubuntu:xenial
+            platforms: |-
+              linux/amd64
               linux/arm/v7
               linux/arm64
               linux/386
               linux/ppc64le
               linux/s390x
-          - base-image: debian:8
-            dockerfile: Dockerfile.debian
-            tags: |-
-              ghcr.io/phasecorex/user-debian:8
-              ghcr.io/phasecorex/user-debian:jessie
-            platforms: |-
-              linux/amd64
-              linux/arm/v5
-              linux/arm/v7
-              linux/386
-          - base-image: debian:8-slim
-            dockerfile: Dockerfile.debian
-            tags: |-
-              ghcr.io/phasecorex/user-debian:8-slim
-              ghcr.io/phasecorex/user-debian:jessie-slim
-            platforms: |-
-              linux/amd64
-              linux/arm/v5
-              linux/arm/v7
-              linux/386
-          - base-image: debian:9
-            dockerfile: Dockerfile.debian
-            tags: |-
-              ghcr.io/phasecorex/user-debian:9
-              ghcr.io/phasecorex/user-debian:stretch
-            platforms: |-
-              linux/amd64
-              linux/arm/v5
-              linux/arm/v7
-              linux/arm64
-              linux/386
-          - base-image: debian:9-slim
-            dockerfile: Dockerfile.debian
-            tags: |-
-              ghcr.io/phasecorex/user-debian:9-slim
-              ghcr.io/phasecorex/user-debian:stretch-slim
-            platforms: |-
-              linux/amd64
-              linux/arm/v5
-              linux/arm/v7
-              linux/arm64
-              linux/386
     steps:
       - name: Checkout
         uses: actions/checkout@v2

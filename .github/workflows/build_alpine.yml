@@ -112,12 +112,10 @@ jobs:
           file: ${{ matrix.dockerfile }}
           platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ matrix.tags }}
+          tags: ${{ matrix.tags }}
+          cache-from: ${{ matrix.tags }}
           build-args: |
             BASE_IMG=${{ matrix.base-image }}
-          cache-from: |
-            ${{ matrix.tags }}
           labels: |
             maintainer=${{ github.repository_owner }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
