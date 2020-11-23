@@ -29,10 +29,24 @@ jobs:
         include:
           - base-image: debian:10
             dockerfile: Dockerfile.debian
+            platforms: |-
+              linux/amd64
+              linux/arm/v5
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-debian:10
               ghcr.io/phasecorex/user-debian:buster
               ghcr.io/phasecorex/user-debian:latest
+              docker.io/phasecorex/user-debian:10
+              docker.io/phasecorex/user-debian:buster
+              docker.io/phasecorex/user-debian:latest
+            cache-from: ghcr.io/phasecorex/user-debian:10
+          - base-image: debian:10-slim
+            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v5
@@ -41,61 +55,66 @@ jobs:
               linux/386
               linux/ppc64le
               linux/s390x
-          - base-image: debian:10-slim
-            dockerfile: Dockerfile.debian
             tags: |-
               ghcr.io/phasecorex/user-debian:10-slim
               ghcr.io/phasecorex/user-debian:buster-slim
+              docker.io/phasecorex/user-debian:10-slim
+              docker.io/phasecorex/user-debian:buster-slim
+            cache-from: ghcr.io/phasecorex/user-debian:10-slim
+          - base-image: debian:8
+            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v5
               linux/arm/v7
-              linux/arm64
               linux/386
-              linux/ppc64le
-              linux/s390x
-          - base-image: debian:8
-            dockerfile: Dockerfile.debian
             tags: |-
               ghcr.io/phasecorex/user-debian:8
               ghcr.io/phasecorex/user-debian:jessie
+              docker.io/phasecorex/user-debian:8
+              docker.io/phasecorex/user-debian:jessie
+            cache-from: ghcr.io/phasecorex/user-debian:8
+          - base-image: debian:8-slim
+            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v5
               linux/arm/v7
               linux/386
-          - base-image: debian:8-slim
-            dockerfile: Dockerfile.debian
             tags: |-
               ghcr.io/phasecorex/user-debian:8-slim
               ghcr.io/phasecorex/user-debian:jessie-slim
+              docker.io/phasecorex/user-debian:8-slim
+              docker.io/phasecorex/user-debian:jessie-slim
+            cache-from: ghcr.io/phasecorex/user-debian:8-slim
+          - base-image: debian:9
+            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v5
               linux/arm/v7
+              linux/arm64
               linux/386
-          - base-image: debian:9
-            dockerfile: Dockerfile.debian
             tags: |-
               ghcr.io/phasecorex/user-debian:9
               ghcr.io/phasecorex/user-debian:stretch
+              docker.io/phasecorex/user-debian:9
+              docker.io/phasecorex/user-debian:stretch
+            cache-from: ghcr.io/phasecorex/user-debian:9
+          - base-image: debian:9-slim
+            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
-          - base-image: debian:9-slim
-            dockerfile: Dockerfile.debian
             tags: |-
               ghcr.io/phasecorex/user-debian:9-slim
               ghcr.io/phasecorex/user-debian:stretch-slim
-            platforms: |-
-              linux/amd64
-              linux/arm/v5
-              linux/arm/v7
-              linux/arm64
-              linux/386
+              docker.io/phasecorex/user-debian:9-slim
+              docker.io/phasecorex/user-debian:stretch-slim
+            cache-from: ghcr.io/phasecorex/user-debian:9-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -117,6 +136,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
+      - name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push ${{ matrix.base-image }}
         uses: docker/build-push-action@v2
         with:
@@ -125,7 +150,7 @@ jobs:
           platforms: ${{ matrix.platforms }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ matrix.tags }}
-          cache-from: ${{ matrix.tags }}
+          cache-from: ${{ matrix.cache-from }}
           build-args: |
             BASE_IMG=${{ matrix.base-image }}
           labels: |
