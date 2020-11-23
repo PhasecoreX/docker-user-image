@@ -6,10 +6,10 @@ Base images that step down from root into a runtime-defined non-privileged user
 
 This repository is used as the template for building many of my `user-[IMAGE]` images. Currently we have the following images set up with multi-arch support:
 
-- [`alpine`](https://github.com/PhasecoreX/docker-user-alpine) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-alpine/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-alpine)
-- [`debian`](https://github.com/PhasecoreX/docker-user-debian) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-debian/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-debian)
-- [`python`](https://github.com/PhasecoreX/docker-user-python) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-python/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-python)
-- [`ubuntu`](https://github.com/PhasecoreX/docker-user-ubuntu) [![Build Status](https://cloud.drone.io/api/badges/PhasecoreX/docker-user-ubuntu/status.svg)](https://cloud.drone.io/PhasecoreX/docker-user-ubuntu)
+- `alpine` [![Build Status](https://github.com/PhasecoreX/docker-user-image/workflows/build_alpine/badge.svg)](https://github.com/PhasecoreX/docker-user-image/actions?query=workflow%3Abuild_alpine) [![Docker Pulls](https://img.shields.io/docker/pulls/phasecorex/user-alpine)](https://hub.docker.com/r/phasecorex/user-alpine)
+- `debian` [![Build Status](https://github.com/PhasecoreX/docker-user-image/workflows/build_debian/badge.svg)](https://github.com/PhasecoreX/docker-user-image/actions?query=workflow%3Abuild_debian) [![Docker Pulls](https://img.shields.io/docker/pulls/phasecorex/user-debian)](https://hub.docker.com/r/phasecorex/user-debian)
+- `python` [![Build Status](https://github.com/PhasecoreX/docker-user-image/workflows/build_python/badge.svg)](https://github.com/PhasecoreX/docker-user-image/actions?query=workflow%3Abuild_python) [![Docker Pulls](https://img.shields.io/docker/pulls/phasecorex/user-python)](https://hub.docker.com/r/phasecorex/user-python)
+- `ubuntu` [![Build Status](https://github.com/PhasecoreX/docker-user-image/workflows/build_ubuntu/badge.svg)](https://github.com/PhasecoreX/docker-user-image/actions?query=workflow%3Abuild_ubuntu) [![Docker Pulls](https://img.shields.io/docker/pulls/phasecorex/user-ubuntu)](https://hub.docker.com/r/phasecorex/user-ubuntu)
 
 ## For Developers
 Simply have your image use this image as its base image:
@@ -19,6 +19,7 @@ FROM phasecorex/user-[IMAGE]
 Replace `[IMAGE]` with any of the above supported image names. Extending an image is just like extending the library image they are based off of, except you get a few more features:
 - UID/GID support: A user can specify `PUID` (and optionally `PGID`) to set the UID/GID your images `CMD` will run as. This also will make sure certain directories have proper permissions set on them, see Directories below.
 - Timezone support: A user can specify `TZ` to set the containers timezone.
+- Niceness support: A user can specify `NICENESS` to set the containers cpu niceness.
 
 ### Directories
 There are two directories created for your program to use:
@@ -28,15 +29,7 @@ There are two directories created for your program to use:
 These two directories will be chowned to the UID and GID the user selected via environment variables at start. If the image detects that the owner/group has been changed since last run, a full recursive chown will be performed instead. Your program will not need to worry about any permission errors with these directories.
 
 ### Multi-Arch
-Pulling the base image will automatically pull the correct architecture for your build environment. If you need a specific architecture for your image (building a multi-arch image, for example), you can pull a specific tag with one of the following suffixes:
-
-- `-amd64`
-- `-arm32v5`
-- `-arm32v6`
-- `-arm32v7`
-- `-arm64v8`
-
-For example, `phasecorex/user-alpine:edge-arm32v7` will get the alpine edge image built for an arm device (Raspberry Pi).
+Pulling the base image will automatically pull the correct architecture for your build environment.
 
 ### Custom Entrypoints
 This image uses an entrypoint script to do all of the setup at runtime. If your image utilizes an entrypoint script as well, you will need to prepend this images entrypoint (`user-entrypoint`) to it:
