@@ -29,65 +29,61 @@ jobs:
         include:
           - base-image: alpine:edge
             dockerfile: Dockerfile.alpine
-            tags:
-              - ghcr.io/phasecorex/user-alpine:edge
-            platforms:
-              - linux/amd64
-              - linux/arm/v6
-              - linux/arm/v7
-              - linux/arm64
-              - linux/386
-              - linux/ppc64le
-              - linux/s390x
+            tags: ghcr.io/phasecorex/user-alpine:edge
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
           - base-image: alpine:3.12
             dockerfile: Dockerfile.alpine
-            tags:
-              - ghcr.io/phasecorex/user-alpine:3.12
-              - ghcr.io/phasecorex/user-alpine:latest
-            platforms:
-              - linux/amd64
-              - linux/arm/v6
-              - linux/arm/v7
-              - linux/arm64
-              - linux/386
-              - linux/ppc64le
-              - linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:3.12
+              ghcr.io/phasecorex/user-alpine:latest
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
           - base-image: alpine:3.11
             dockerfile: Dockerfile.alpine
-            tags:
-              - ghcr.io/phasecorex/user-alpine:3.11
-            platforms:
-              - linux/amd64
-              - linux/arm/v6
-              - linux/arm/v7
-              - linux/arm64
-              - linux/386
-              - linux/ppc64le
-              - linux/s390x
+            tags: ghcr.io/phasecorex/user-alpine:3.11
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
           - base-image: alpine:3.10
             dockerfile: Dockerfile.alpine
-            tags:
-              - ghcr.io/phasecorex/user-alpine:3.10
-            platforms:
-              - linux/amd64
-              - linux/arm/v6
-              - linux/arm/v7
-              - linux/arm64
-              - linux/386
-              - linux/ppc64le
-              - linux/s390x
+            tags: ghcr.io/phasecorex/user-alpine:3.10
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
           - base-image: alpine:3.9
             dockerfile: Dockerfile.alpine
-            tags:
-              - ghcr.io/phasecorex/user-alpine:3.9
-            platforms:
-              - linux/amd64
-              - linux/arm/v6
-              - linux/arm/v7
-              - linux/arm64
-              - linux/386
-              - linux/ppc64le
-              - linux/s390x
+            tags: ghcr.io/phasecorex/user-alpine:3.9
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
     steps:
       - name: Checkout
         uses: actions/checkout@v2
