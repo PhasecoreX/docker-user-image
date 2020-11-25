@@ -3,8 +3,8 @@ FROM ${BASE_IMG}
 
 RUN set -eux; \
     apk add --no-cache shadow su-exec tzdata; \
-    groupadd -g 1000 docker; \
-    useradd --no-log-init -s /bin/sh -u 1000 -g 1000 -d /config -o -c "" -m docker; \
+    groupadd --gid 1000 docker; \
+    useradd --no-log-init --uid 1000 --gid 1000 --home-dir /config --shell /bin/false docker; \
     mkdir -p \
         /config \
         /data;

@@ -6,16 +6,16 @@ on:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.debian
       - Dockerfile.alpine
+      - Dockerfile.debian
       - .github/workflows/build_python.yml
   pull_request:
     branches:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.debian
       - Dockerfile.alpine
+      - Dockerfile.debian
       - .github/workflows/build_python.yml
   repository_dispatch:
     types:

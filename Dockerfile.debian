@@ -3,13 +3,12 @@ FROM ${BASE_IMG} as builder
 
 ADD https://github.com/ncopa/su-exec/archive/212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz /
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends make gcc libc6-dev
-    
-RUN tar xvzf 212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz
-
-RUN cd su-exec-* && \
-    make su-exec && \
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends make gcc libc6-dev; \
+    tar xvzf 212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz; \
+    cd su-exec-*; \
+    make su-exec; \
     mv su-exec /
 
 
@@ -20,8 +19,8 @@ COPY --from=builder /su-exec /bin/su-exec
 
 RUN set -eux; \
 # add user and group
-    groupadd -f -g 1000 docker; \
-    useradd --no-log-init --shell /bin/bash -u 1000 -g 1000 -d /config -o -c "" -m docker; \
+    groupadd --gid 1000 docker; \
+    useradd --no-log-init --uid 1000 --gid 1000 --home-dir /config --shell /bin/false docker; \
     mkdir -p \
         /config \
         /data; \
