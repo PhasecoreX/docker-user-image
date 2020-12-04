@@ -8,6 +8,7 @@ on:
       - user-entrypoint.sh
       - Dockerfile.debian
       - .github/workflows/build_debian.yml
+      - su-exec/**
   pull_request:
     branches:
       - master
@@ -15,6 +16,7 @@ on:
       - user-entrypoint.sh
       - Dockerfile.debian
       - .github/workflows/build_debian.yml
+      - su-exec/**
   repository_dispatch:
     types:
       - debian_image_update
@@ -118,6 +120,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Repo metadata
         id: repo
         uses: actions/github-script@v3

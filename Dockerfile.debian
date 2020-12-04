@@ -1,21 +1,19 @@
 ARG BASE_IMG
 FROM ${BASE_IMG} as builder
 
-ADD https://github.com/ncopa/su-exec/archive/212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz /
+COPY su-exec/ /su-exec/
 
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends make gcc libc6-dev; \
-    tar xvzf 212b75144bbc06722fbd7661f651390dc47a43d1.tar.gz; \
-    cd su-exec-*; \
-    make su-exec; \
-    mv su-exec /
+    cd su-exec; \
+    make su-exec
 
 
 
 FROM ${BASE_IMG}
 
-COPY --from=builder /su-exec /bin/su-exec
+COPY --from=builder /su-exec/su-exec /bin/su-exec
 
 RUN set -eux; \
 # add user and group

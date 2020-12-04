@@ -9,6 +9,7 @@ on:
       - Dockerfile.alpine
       - Dockerfile.debian
       - .github/workflows/build_python.yml
+      - su-exec/**
   pull_request:
     branches:
       - master
@@ -17,6 +18,7 @@ on:
       - Dockerfile.alpine
       - Dockerfile.debian
       - .github/workflows/build_python.yml
+      - su-exec/**
   repository_dispatch:
     types:
       - python_image_update
@@ -208,6 +210,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Repo metadata
         id: repo
         uses: actions/github-script@v3
