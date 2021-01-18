@@ -41,6 +41,22 @@ jobs:
               ghcr.io/phasecorex/user-alpine:edge
               docker.io/phasecorex/user-alpine:edge
             cache-from: ghcr.io/phasecorex/user-alpine:edge
+          - base-image: alpine:3.13
+            dockerfile: Dockerfile.alpine
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:3.13
+              ghcr.io/phasecorex/user-alpine:latest
+              docker.io/phasecorex/user-alpine:3.13
+              docker.io/phasecorex/user-alpine:latest
+            cache-from: ghcr.io/phasecorex/user-alpine:3.13
           - base-image: alpine:3.12
             dockerfile: Dockerfile.alpine
             platforms: |-
@@ -53,9 +69,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-alpine:3.12
-              ghcr.io/phasecorex/user-alpine:latest
               docker.io/phasecorex/user-alpine:3.12
-              docker.io/phasecorex/user-alpine:latest
             cache-from: ghcr.io/phasecorex/user-alpine:3.12
           - base-image: alpine:3.11
             dockerfile: Dockerfile.alpine
@@ -85,20 +99,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.10
               docker.io/phasecorex/user-alpine:3.10
             cache-from: ghcr.io/phasecorex/user-alpine:3.10
-          - base-image: alpine:3.9
-            dockerfile: Dockerfile.alpine
-            platforms: |-
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-alpine:3.9
-              docker.io/phasecorex/user-alpine:3.9
-            cache-from: ghcr.io/phasecorex/user-alpine:3.9
     steps:
       - name: Checkout
         uses: actions/checkout@v2
