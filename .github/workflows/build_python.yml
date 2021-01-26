@@ -35,7 +35,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
@@ -53,7 +52,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
@@ -85,7 +83,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
@@ -99,7 +96,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
@@ -127,7 +123,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
@@ -141,7 +136,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
@@ -169,7 +163,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
@@ -183,7 +176,6 @@ jobs:
             dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
-              linux/arm/v5
               linux/arm/v7
               linux/arm64
               linux/386
