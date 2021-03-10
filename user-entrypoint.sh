@@ -9,10 +9,15 @@ fi
 
 # Set the timezone if specified
 if [ -n "${TZ:-}" ]; then
-    if [ -f "/usr/share/zoneinfo/${TZ}" ]; then
-        rm -f /etc/localtime
-        cp "/usr/share/zoneinfo/${TZ}" /etc/localtime
-        echo "${TZ}" >/etc/timezone
+    if [ -f /etc/localtime ] && [ "$(stat -c "%d" "$(readlink -f /etc/localtime)")" -ne "$(stat -c "%d" /)" ]; then
+        echo "/etc/localtime file mounted, ignoring environment variable TZ..."
+    elif [ -f "/usr/share/zoneinfo/${TZ}" ]; then
+        ln -sf "/usr/share/zoneinfo/${TZ}" /etc/localtime
+        if [ -f /etc/timezone ] && [ "$(stat -c "%d" "$(readlink -f /etc/timezone)")" -ne "$(stat -c "%d" /)" ]; then
+            echo "Skipping /etc/timezone file update, as it is mounted from host"
+        else
+            echo "${TZ}" >/etc/timezone
+        fi
         echo "Timezone set to ${TZ}"
     else
         echo "Environment variable TZ (${TZ}) is invalid, ignoring..."
