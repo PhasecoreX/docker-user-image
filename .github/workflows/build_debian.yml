@@ -61,30 +61,6 @@ jobs:
               docker.io/phasecorex/user-debian:10-slim
               docker.io/phasecorex/user-debian:buster-slim
             cache-from: ghcr.io/phasecorex/user-debian:10-slim
-          - base-image: debian:8
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/386
-            tags: |-
-              ghcr.io/phasecorex/user-debian:8
-              ghcr.io/phasecorex/user-debian:jessie
-              docker.io/phasecorex/user-debian:8
-              docker.io/phasecorex/user-debian:jessie
-            cache-from: ghcr.io/phasecorex/user-debian:8
-          - base-image: debian:8-slim
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/386
-            tags: |-
-              ghcr.io/phasecorex/user-debian:8-slim
-              ghcr.io/phasecorex/user-debian:jessie-slim
-              docker.io/phasecorex/user-debian:8-slim
-              docker.io/phasecorex/user-debian:jessie-slim
-            cache-from: ghcr.io/phasecorex/user-debian:8-slim
           - base-image: debian:9
             dockerfile: Dockerfile.debian
             platforms: |-
