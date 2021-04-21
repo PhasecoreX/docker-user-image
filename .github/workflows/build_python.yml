@@ -26,6 +26,8 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     env:
       TITLE: User Python
     strategy:
@@ -221,7 +223,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to DockerHub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
