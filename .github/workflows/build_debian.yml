@@ -126,10 +126,10 @@ jobs:
           submodules: recursive
       - name: Repo metadata
         id: repo
-        uses: actions/github-script@v4
+        uses: actions/github-script@v5
         with:
           script: |
-            const repo = await github.repos.get(context.repo)
+            const repo = await github.rest.repos.get(context.repo)
             return repo.data
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
