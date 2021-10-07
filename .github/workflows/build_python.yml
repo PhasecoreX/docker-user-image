@@ -33,6 +33,54 @@ jobs:
     strategy:
       matrix:
         include:
+          - base-image: python:3.10
+            dockerfile: Dockerfile.debian
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-python:3.10
+              ghcr.io/phasecorex/user-python:3
+              ghcr.io/phasecorex/user-python:latest
+              docker.io/phasecorex/user-python:3.10
+              docker.io/phasecorex/user-python:3
+              docker.io/phasecorex/user-python:latest
+            cache-from: ghcr.io/phasecorex/user-python:3.10
+          - base-image: python:3.10-slim
+            dockerfile: Dockerfile.debian
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-python:3.10-slim
+              ghcr.io/phasecorex/user-python:3-slim
+              docker.io/phasecorex/user-python:3.10-slim
+              docker.io/phasecorex/user-python:3-slim
+            cache-from: ghcr.io/phasecorex/user-python:3.10-slim
+          - base-image: python:3.10-alpine
+            dockerfile: Dockerfile.alpine
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-python:3.10-alpine
+              ghcr.io/phasecorex/user-python:3-alpine
+              docker.io/phasecorex/user-python:3.10-alpine
+              docker.io/phasecorex/user-python:3-alpine
+            cache-from: ghcr.io/phasecorex/user-python:3.10-alpine
           - base-image: python:3.9
             dockerfile: Dockerfile.debian
             platforms: |-
@@ -44,11 +92,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-python:3.9
-              ghcr.io/phasecorex/user-python:3
-              ghcr.io/phasecorex/user-python:latest
               docker.io/phasecorex/user-python:3.9
-              docker.io/phasecorex/user-python:3
-              docker.io/phasecorex/user-python:latest
             cache-from: ghcr.io/phasecorex/user-python:3.9
           - base-image: python:3.9-slim
             dockerfile: Dockerfile.debian
@@ -61,9 +105,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-python:3.9-slim
-              ghcr.io/phasecorex/user-python:3-slim
               docker.io/phasecorex/user-python:3.9-slim
-              docker.io/phasecorex/user-python:3-slim
             cache-from: ghcr.io/phasecorex/user-python:3.9-slim
           - base-image: python:3.9-alpine
             dockerfile: Dockerfile.alpine
@@ -77,9 +119,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-python:3.9-alpine
-              ghcr.io/phasecorex/user-python:3-alpine
               docker.io/phasecorex/user-python:3.9-alpine
-              docker.io/phasecorex/user-python:3-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.9-alpine
           - base-image: python:3.8
             dockerfile: Dockerfile.debian
