@@ -201,46 +201,6 @@ jobs:
               ghcr.io/phasecorex/user-python:3.7-alpine
               docker.io/phasecorex/user-python:3.7-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.7-alpine
-          - base-image: python:3.6
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-python:3.6
-              docker.io/phasecorex/user-python:3.6
-            cache-from: ghcr.io/phasecorex/user-python:3.6
-          - base-image: python:3.6-slim
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-python:3.6-slim
-              docker.io/phasecorex/user-python:3.6-slim
-            cache-from: ghcr.io/phasecorex/user-python:3.6-slim
-          - base-image: python:3.6-alpine
-            dockerfile: Dockerfile.alpine
-            platforms: |-
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-python:3.6-alpine
-              docker.io/phasecorex/user-python:3.6-alpine
-            cache-from: ghcr.io/phasecorex/user-python:3.6-alpine
     steps:
       - name: Checkout
         uses: actions/checkout@v2
