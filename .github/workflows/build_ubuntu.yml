@@ -71,11 +71,9 @@ jobs:
             tags: |-
               ghcr.io/phasecorex/user-ubuntu:22.04
               ghcr.io/phasecorex/user-ubuntu:jammy
-              ghcr.io/phasecorex/user-ubuntu:devel
               ghcr.io/phasecorex/user-ubuntu:latest
               docker.io/phasecorex/user-ubuntu:22.04
               docker.io/phasecorex/user-ubuntu:jammy
-              docker.io/phasecorex/user-ubuntu:devel
               docker.io/phasecorex/user-ubuntu:latest
             cache-from: ghcr.io/phasecorex/user-ubuntu:22.04
           - base-image: ubuntu:14.04
