@@ -129,10 +129,10 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: phasecorex/user-debian
-        labels: |
-          maintainer=${{ github.repository_owner }}
-          org.opencontainers.image.vendor=${{ github.repository_owner }}
-          org.opencontainers.image.title=${{ env.TITLE }}
+          labels: |
+            maintainer=${{ github.repository_owner }}
+            org.opencontainers.image.vendor=${{ github.repository_owner }}
+            org.opencontainers.image.title=${{ env.TITLE }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
