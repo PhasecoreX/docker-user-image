@@ -104,13 +104,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Repo metadata
-        id: repo
-        uses: actions/github-script@v6
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
         with:
-          script: |
-            const repo = await github.rest.repos.get(context.repo)
-            return repo.data
+          images: phasecorex/user-alpine
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -139,11 +137,4 @@ jobs:
           cache-from: ${{ matrix.cache-from }}
           build-args: |
             BASE_IMG=${{ matrix.base-image }}
-          labels: |
-            maintainer=${{ github.repository_owner }}
-            org.opencontainers.image.vendor=${{ github.repository_owner }}
-            org.opencontainers.image.title=${{ env.TITLE }}
-            org.opencontainers.image.description=${{ fromJson(steps.repo.outputs.result).description }}
-            org.opencontainers.image.source=${{ fromJson(steps.repo.outputs.result).html_url }}
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.licenses=${{ fromJson(steps.repo.outputs.result).license.spdx_id }}
+          labels: ${{ steps.meta.outputs.labels }}
