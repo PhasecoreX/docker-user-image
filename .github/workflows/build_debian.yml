@@ -93,32 +93,6 @@ jobs:
               docker.io/phasecorex/user-debian:10-slim
               docker.io/phasecorex/user-debian:buster-slim
             cache-from: ghcr.io/phasecorex/user-debian:10-slim
-          - base-image: debian:9
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-            tags: |-
-              ghcr.io/phasecorex/user-debian:9
-              ghcr.io/phasecorex/user-debian:stretch
-              docker.io/phasecorex/user-debian:9
-              docker.io/phasecorex/user-debian:stretch
-            cache-from: ghcr.io/phasecorex/user-debian:9
-          - base-image: debian:9-slim
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-            tags: |-
-              ghcr.io/phasecorex/user-debian:9-slim
-              ghcr.io/phasecorex/user-debian:stretch-slim
-              docker.io/phasecorex/user-debian:9-slim
-              docker.io/phasecorex/user-debian:stretch-slim
-            cache-from: ghcr.io/phasecorex/user-debian:9-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v3
