@@ -29,7 +29,7 @@ PUID=${PUID:-1000}
 PGID=${PGID:-${PUID}}
 
 # Set permissions and custom exec commands, if applicable
-if [ "${PUID}" -ne 0 ]; then
+if [ "${PUID}" -ne "0" ]; then
     # Non-root needs su-exec to run the command
     set "su-exec" "docker" "$@"
 
@@ -48,15 +48,17 @@ if [ "${PUID}" -ne 0 ]; then
             # Subsequent run, PUID/PGID changed from previous run
             echo "Resetting all permissions in directory \"/${folder}\" to UID/GID: ${PUID}/${PGID}"
             chown -R docker:docker "/${folder}"
-        else
-            # Subsequent run, PUID/PGID have not changed. Still chown the directory in case this is volume mounted (folder would otherwise be owned by root)
+        elif [ "$(stat -c "%u" "/${folder}")" -ne "${PUID}" ] || [ "$(stat -c "%g" "/${folder}")" -ne "${PGID}" ]; then
+            # Subsequent run, PUID/PGID have not changed for contained files, but directory itself isn't owned by PUID/PGID (directory is probably volume mounted and owned by root)
             chown docker:docker "/${folder}"
         fi
     done
 else
     for folder in config data; do
         if [ -f "/${folder}/.permissions-set" ]; then
-            chown root:root "/${folder}/.permissions-set"
+            if [ "$(stat -c "%u" "/${folder}/.permissions-set")" -ne "0" ] || [ "$(stat -c "%g" "/${folder}/.permissions-set")" -ne "0" ]; then
+                chown root:root "/${folder}/.permissions-set"
+            fi
         fi
     done
 fi
