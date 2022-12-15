@@ -1,10 +1,58 @@
 #!/usr/bin/env sh
-set -euf
+set -eu
 
 # This image cannot be run with the --user flag
 if [ "$(id -u)" -ne 0 ]; then
     echo "ERROR: This image should not be run with the --user Docker flag. Exiting..."
     exit 1
+fi
+
+# If this is during the image build, we run this and exit
+if [ "$1" = "--init" ]; then
+    if command -v apk >/dev/null 2>&1; then
+        # alpine
+        apk add --no-cache shadow su-exec tzdata
+    elif command -v apt-get >/dev/null 2>&1; then
+        # debian
+        savedAptMark="$(apt-mark showmanual)"
+        apt-get update
+        apt-get install -y --no-install-recommends ca-certificates curl unzip make gcc libc6-dev
+
+        SU_EXEC_HASH="212b75144bbc06722fbd7661f651390dc47a43d1"
+        curl -L https://github.com/ncopa/su-exec/archive/${SU_EXEC_HASH}.zip -o su-exec.zip
+        unzip su-exec.zip
+        cd su-exec-*
+        make su-exec
+        cp ./su-exec /bin/su-exec
+        cd ..
+        rm su-exec* -rf
+        su-exec nobody true
+
+        apt-mark auto '.*' > /dev/null
+        [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark
+        apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
+
+        # add timezone functionality if missing
+        if [ ! -d /usr/share/zoneinfo ]; then
+            apt-get install -y --no-install-recommends tzdata
+        fi
+
+        # clean up
+        rm -rf /var/lib/apt/lists/*
+    else
+        # unsupported
+        echo "This base image is unsupported!"
+        exit 1
+    fi
+
+    # add user and group
+    groupadd --gid 1000 docker
+    useradd --no-log-init --uid 1000 --gid 1000 --home-dir /config --shell /bin/false docker
+    mkdir -p \
+        /config \
+        /data
+
+    exit 0
 fi
 
 # Set the timezone if specified
