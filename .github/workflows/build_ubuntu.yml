@@ -76,35 +76,6 @@ jobs:
               docker.io/phasecorex/user-ubuntu:jammy
               docker.io/phasecorex/user-ubuntu:latest
             cache-from: ghcr.io/phasecorex/user-ubuntu:22.04
-          - base-image: ubuntu:14.04
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-            tags: |-
-              ghcr.io/phasecorex/user-ubuntu:14.04
-              ghcr.io/phasecorex/user-ubuntu:trusty
-              docker.io/phasecorex/user-ubuntu:14.04
-              docker.io/phasecorex/user-ubuntu:trusty
-            cache-from: ghcr.io/phasecorex/user-ubuntu:14.04
-          - base-image: ubuntu:16.04
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-ubuntu:16.04
-              ghcr.io/phasecorex/user-ubuntu:xenial
-              docker.io/phasecorex/user-ubuntu:16.04
-              docker.io/phasecorex/user-ubuntu:xenial
-            cache-from: ghcr.io/phasecorex/user-ubuntu:16.04
     steps:
       - name: Checkout
         uses: actions/checkout@v3
