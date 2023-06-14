@@ -31,6 +31,38 @@ jobs:
     strategy:
       matrix:
         include:
+          - base-image: debian:12
+            dockerfile: Dockerfile.debian
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-debian:12
+              ghcr.io/phasecorex/user-debian:bookworm
+              ghcr.io/phasecorex/user-debian:latest
+              docker.io/phasecorex/user-debian:12
+              docker.io/phasecorex/user-debian:bookworm
+              docker.io/phasecorex/user-debian:latest
+            cache-from: ghcr.io/phasecorex/user-debian:12
+          - base-image: debian:12-slim
+            dockerfile: Dockerfile.debian
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-debian:12-slim
+              ghcr.io/phasecorex/user-debian:bookworm-slim
+              docker.io/phasecorex/user-debian:12-slim
+              docker.io/phasecorex/user-debian:bookworm-slim
+            cache-from: ghcr.io/phasecorex/user-debian:12-slim
           - base-image: debian:11
             dockerfile: Dockerfile.debian
             platforms: |-
@@ -43,10 +75,8 @@ jobs:
             tags: |-
               ghcr.io/phasecorex/user-debian:11
               ghcr.io/phasecorex/user-debian:bullseye
-              ghcr.io/phasecorex/user-debian:latest
               docker.io/phasecorex/user-debian:11
               docker.io/phasecorex/user-debian:bullseye
-              docker.io/phasecorex/user-debian:latest
             cache-from: ghcr.io/phasecorex/user-debian:11
           - base-image: debian:11-slim
             dockerfile: Dockerfile.debian
