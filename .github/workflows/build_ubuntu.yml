@@ -31,21 +31,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - base-image: ubuntu:18.04
-            dockerfile: Dockerfile.debian
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-ubuntu:18.04
-              ghcr.io/phasecorex/user-ubuntu:bionic
-              docker.io/phasecorex/user-ubuntu:18.04
-              docker.io/phasecorex/user-ubuntu:bionic
-            cache-from: ghcr.io/phasecorex/user-ubuntu:18.04
           - base-image: ubuntu:20.04
             dockerfile: Dockerfile.debian
             platforms: |-
