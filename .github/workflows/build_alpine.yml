@@ -43,6 +43,22 @@ jobs:
               ghcr.io/phasecorex/user-alpine:edge
               docker.io/phasecorex/user-alpine:edge
             cache-from: ghcr.io/phasecorex/user-alpine:edge
+          - base-image: alpine:3.19
+            dockerfile: Dockerfile.alpine
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:3.19
+              ghcr.io/phasecorex/user-alpine:latest
+              docker.io/phasecorex/user-alpine:3.19
+              docker.io/phasecorex/user-alpine:latest
+            cache-from: ghcr.io/phasecorex/user-alpine:3.19
           - base-image: alpine:3.18
             dockerfile: Dockerfile.alpine
             platforms: |-
@@ -55,9 +71,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-alpine:3.18
-              ghcr.io/phasecorex/user-alpine:latest
               docker.io/phasecorex/user-alpine:3.18
-              docker.io/phasecorex/user-alpine:latest
             cache-from: ghcr.io/phasecorex/user-alpine:3.18
           - base-image: alpine:3.17
             dockerfile: Dockerfile.alpine
@@ -87,20 +101,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.16
               docker.io/phasecorex/user-alpine:3.16
             cache-from: ghcr.io/phasecorex/user-alpine:3.16
-          - base-image: alpine:3.15
-            dockerfile: Dockerfile.alpine
-            platforms: |-
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-alpine:3.15
-              docker.io/phasecorex/user-alpine:3.15
-            cache-from: ghcr.io/phasecorex/user-alpine:3.15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
