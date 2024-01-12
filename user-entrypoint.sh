@@ -45,8 +45,21 @@ if [ "$1" = "--init" ]; then
         exit 1
     fi
 
-    # add user and group
-    groupadd --gid 1000 docker
+    # if present, remove existing user
+    existing_user="$(getent passwd 1000 | cut -d: -f1)"
+    if [ -n "${existing_user:-}" ]; then
+        userdel --force "${existing_user}"
+    fi
+
+    # add group (or rename existing)
+    existing_group="$(getent group 1000 | cut -d: -f1)"
+    if [ -n "${existing_group:-}" ]; then
+        groupmod --new-name docker "${existing_group}"
+    else
+        groupadd --gid 1000 docker
+    fi
+
+    # add user
     useradd --no-log-init --uid 1000 --gid 1000 --home-dir /config --shell /bin/false docker
     mkdir -p \
         /config \
