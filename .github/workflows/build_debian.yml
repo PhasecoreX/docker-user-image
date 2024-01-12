@@ -6,17 +6,15 @@ on:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.debian
+      - Dockerfile
       - .github/workflows/build_debian.yml
-      - su-exec/**
   pull_request:
     branches:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.debian
+      - Dockerfile
       - .github/workflows/build_debian.yml
-      - su-exec/**
   repository_dispatch:
     types:
       - debian_image_update
@@ -32,7 +30,6 @@ jobs:
       matrix:
         include:
           - base-image: debian:12
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -49,7 +46,6 @@ jobs:
               docker.io/phasecorex/user-debian:latest
             cache-from: ghcr.io/phasecorex/user-debian:12
           - base-image: debian:12-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -64,7 +60,6 @@ jobs:
               docker.io/phasecorex/user-debian:bookworm-slim
             cache-from: ghcr.io/phasecorex/user-debian:12-slim
           - base-image: debian:11
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -79,7 +74,6 @@ jobs:
               docker.io/phasecorex/user-debian:bullseye
             cache-from: ghcr.io/phasecorex/user-debian:11
           - base-image: debian:11-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -94,7 +88,6 @@ jobs:
               docker.io/phasecorex/user-debian:bullseye-slim
             cache-from: ghcr.io/phasecorex/user-debian:11-slim
           - base-image: debian:10
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -107,7 +100,6 @@ jobs:
               docker.io/phasecorex/user-debian:buster
             cache-from: ghcr.io/phasecorex/user-debian:10
           - base-image: debian:10-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -122,8 +114,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5

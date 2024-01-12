@@ -6,14 +6,14 @@ on:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.alpine
+      - Dockerfile
       - .github/workflows/build_alpine.yml
   pull_request:
     branches:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.alpine
+      - Dockerfile
       - .github/workflows/build_alpine.yml
   repository_dispatch:
     types:
@@ -30,7 +30,6 @@ jobs:
       matrix:
         include:
           - base-image: alpine:edge
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -44,7 +43,6 @@ jobs:
               docker.io/phasecorex/user-alpine:edge
             cache-from: ghcr.io/phasecorex/user-alpine:edge
           - base-image: alpine:3.19
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -60,7 +58,6 @@ jobs:
               docker.io/phasecorex/user-alpine:latest
             cache-from: ghcr.io/phasecorex/user-alpine:3.19
           - base-image: alpine:3.18
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -74,7 +71,6 @@ jobs:
               docker.io/phasecorex/user-alpine:3.18
             cache-from: ghcr.io/phasecorex/user-alpine:3.18
           - base-image: alpine:3.17
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -88,7 +84,6 @@ jobs:
               docker.io/phasecorex/user-alpine:3.17
             cache-from: ghcr.io/phasecorex/user-alpine:3.17
           - base-image: alpine:3.16
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6

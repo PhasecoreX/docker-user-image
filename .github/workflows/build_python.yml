@@ -6,19 +6,15 @@ on:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.alpine
-      - Dockerfile.debian
+      - Dockerfile
       - .github/workflows/build_python.yml
-      - su-exec/**
   pull_request:
     branches:
       - master
     paths:
       - user-entrypoint.sh
-      - Dockerfile.alpine
-      - Dockerfile.debian
+      - Dockerfile
       - .github/workflows/build_python.yml
-      - su-exec/**
   repository_dispatch:
     types:
       - python_image_update
@@ -34,7 +30,6 @@ jobs:
       matrix:
         include:
           - base-image: python:3.12
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -51,7 +46,6 @@ jobs:
               docker.io/phasecorex/user-python:latest
             cache-from: ghcr.io/phasecorex/user-python:3.12
           - base-image: python:3.12-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -66,7 +60,6 @@ jobs:
               docker.io/phasecorex/user-python:3-slim
             cache-from: ghcr.io/phasecorex/user-python:3.12-slim
           - base-image: python:3.12-alpine
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -82,7 +75,6 @@ jobs:
               docker.io/phasecorex/user-python:3-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.12-alpine
           - base-image: python:3.11
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -95,7 +87,6 @@ jobs:
               docker.io/phasecorex/user-python:3.11
             cache-from: ghcr.io/phasecorex/user-python:3.11
           - base-image: python:3.11-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -108,7 +99,6 @@ jobs:
               docker.io/phasecorex/user-python:3.11-slim
             cache-from: ghcr.io/phasecorex/user-python:3.11-slim
           - base-image: python:3.11-alpine
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -122,7 +112,6 @@ jobs:
               docker.io/phasecorex/user-python:3.11-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.11-alpine
           - base-image: python:3.10
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -135,7 +124,6 @@ jobs:
               docker.io/phasecorex/user-python:3.10
             cache-from: ghcr.io/phasecorex/user-python:3.10
           - base-image: python:3.10-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -148,7 +136,6 @@ jobs:
               docker.io/phasecorex/user-python:3.10-slim
             cache-from: ghcr.io/phasecorex/user-python:3.10-slim
           - base-image: python:3.10-alpine
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -162,7 +149,6 @@ jobs:
               docker.io/phasecorex/user-python:3.10-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.10-alpine
           - base-image: python:3.9
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -175,7 +161,6 @@ jobs:
               docker.io/phasecorex/user-python:3.9
             cache-from: ghcr.io/phasecorex/user-python:3.9
           - base-image: python:3.9-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -188,7 +173,6 @@ jobs:
               docker.io/phasecorex/user-python:3.9-slim
             cache-from: ghcr.io/phasecorex/user-python:3.9-slim
           - base-image: python:3.9-alpine
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -202,7 +186,6 @@ jobs:
               docker.io/phasecorex/user-python:3.9-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.9-alpine
           - base-image: python:3.8
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -215,7 +198,6 @@ jobs:
               docker.io/phasecorex/user-python:3.8
             cache-from: ghcr.io/phasecorex/user-python:3.8
           - base-image: python:3.8-slim
-            dockerfile: Dockerfile.debian
             platforms: |-
               linux/amd64
               linux/arm/v7
@@ -228,7 +210,6 @@ jobs:
               docker.io/phasecorex/user-python:3.8-slim
             cache-from: ghcr.io/phasecorex/user-python:3.8-slim
           - base-image: python:3.8-alpine
-            dockerfile: Dockerfile.alpine
             platforms: |-
               linux/amd64
               linux/arm/v6
@@ -244,8 +225,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
