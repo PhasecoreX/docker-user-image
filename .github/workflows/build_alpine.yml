@@ -18,6 +18,7 @@ on:
   repository_dispatch:
     types:
       - alpine_image_update
+  workflow_dispatch:
 
 jobs:
   docker:
@@ -96,6 +97,7 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.16
               docker.io/phasecorex/user-alpine:3.16
             cache-from: ghcr.io/phasecorex/user-alpine:3.16
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
