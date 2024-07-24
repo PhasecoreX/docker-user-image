@@ -88,30 +88,6 @@ jobs:
               docker.io/phasecorex/user-debian:11-slim
               docker.io/phasecorex/user-debian:bullseye-slim
             cache-from: ghcr.io/phasecorex/user-debian:11-slim
-          - base-image: debian:10
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-            tags: |-
-              ghcr.io/phasecorex/user-debian:10
-              ghcr.io/phasecorex/user-debian:buster
-              docker.io/phasecorex/user-debian:10
-              docker.io/phasecorex/user-debian:buster
-            cache-from: ghcr.io/phasecorex/user-debian:10
-          - base-image: debian:10-slim
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-            tags: |-
-              ghcr.io/phasecorex/user-debian:10-slim
-              ghcr.io/phasecorex/user-debian:buster-slim
-              docker.io/phasecorex/user-debian:10-slim
-              docker.io/phasecorex/user-debian:buster-slim
-            cache-from: ghcr.io/phasecorex/user-debian:10-slim
       fail-fast: false
     steps:
       - name: Checkout
