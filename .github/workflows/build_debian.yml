@@ -66,8 +66,6 @@ jobs:
               linux/arm/v7
               linux/arm64
               linux/386
-              linux/ppc64le
-              linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-debian:11
               ghcr.io/phasecorex/user-debian:bullseye
@@ -80,8 +78,6 @@ jobs:
               linux/arm/v7
               linux/arm64
               linux/386
-              linux/ppc64le
-              linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-debian:11-slim
               ghcr.io/phasecorex/user-debian:bullseye-slim
