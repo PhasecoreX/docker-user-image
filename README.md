@@ -16,7 +16,7 @@ In the past, you were forced to use one of the above 4 base images that I would 
 ```
 # Add PhasecoreX user-entrypoint script
 ADD https://raw.githubusercontent.com/PhasecoreX/docker-user-image/master/user-entrypoint.sh /bin/user-entrypoint
-RUN chmod +x /bin/user-entrypoint && /bin/user-entrypoint --init
+RUN chmod +rx /bin/user-entrypoint && /bin/user-entrypoint --init
 ENTRYPOINT ["/bin/user-entrypoint"]
 ```
 Here are some examples of it being used:
