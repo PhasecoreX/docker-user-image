@@ -43,6 +43,21 @@ jobs:
               ghcr.io/phasecorex/user-alpine:edge
               docker.io/phasecorex/user-alpine:edge
             cache-from: ghcr.io/phasecorex/user-alpine:edge
+          - base-image: alpine:3.22
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-alpine:3.22
+              ghcr.io/phasecorex/user-alpine:latest
+              docker.io/phasecorex/user-alpine:3.22
+              docker.io/phasecorex/user-alpine:latest
+            cache-from: ghcr.io/phasecorex/user-alpine:3.22
           - base-image: alpine:3.21
             platforms: |-
               linux/amd64
@@ -54,9 +69,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-alpine:3.21
-              ghcr.io/phasecorex/user-alpine:latest
               docker.io/phasecorex/user-alpine:3.21
-              docker.io/phasecorex/user-alpine:latest
             cache-from: ghcr.io/phasecorex/user-alpine:3.21
           - base-image: alpine:3.20
             platforms: |-
@@ -84,19 +97,6 @@ jobs:
               ghcr.io/phasecorex/user-alpine:3.19
               docker.io/phasecorex/user-alpine:3.19
             cache-from: ghcr.io/phasecorex/user-alpine:3.19
-          - base-image: alpine:3.18
-            platforms: |-
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-alpine:3.18
-              docker.io/phasecorex/user-alpine:3.18
-            cache-from: ghcr.io/phasecorex/user-alpine:3.18
       fail-fast: false
     steps:
       - name: Checkout
