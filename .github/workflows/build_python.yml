@@ -30,6 +30,51 @@ jobs:
     strategy:
       matrix:
         include:
+          - base-image: python:3.14
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-python:3.14
+              ghcr.io/phasecorex/user-python:3
+              ghcr.io/phasecorex/user-python:latest
+              docker.io/phasecorex/user-python:3.14
+              docker.io/phasecorex/user-python:3
+              docker.io/phasecorex/user-python:latest
+            cache-from: ghcr.io/phasecorex/user-python:3.14
+          - base-image: python:3.14-slim
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-python:3.14-slim
+              ghcr.io/phasecorex/user-python:3-slim
+              docker.io/phasecorex/user-python:3.14-slim
+              docker.io/phasecorex/user-python:3-slim
+            cache-from: ghcr.io/phasecorex/user-python:3.14-slim
+          - base-image: python:3.14-alpine
+            platforms: |-
+              linux/amd64
+              linux/arm/v6
+              linux/arm/v7
+              linux/arm64
+              linux/386
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-python:3.14-alpine
+              ghcr.io/phasecorex/user-python:3-alpine
+              docker.io/phasecorex/user-python:3.14-alpine
+              docker.io/phasecorex/user-python:3-alpine
+            cache-from: ghcr.io/phasecorex/user-python:3.14-alpine
           - base-image: python:3.13
             platforms: |-
               linux/amd64
@@ -40,11 +85,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-python:3.13
-              ghcr.io/phasecorex/user-python:3
-              ghcr.io/phasecorex/user-python:latest
               docker.io/phasecorex/user-python:3.13
-              docker.io/phasecorex/user-python:3
-              docker.io/phasecorex/user-python:latest
             cache-from: ghcr.io/phasecorex/user-python:3.13
           - base-image: python:3.13-slim
             platforms: |-
@@ -56,9 +97,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-python:3.13-slim
-              ghcr.io/phasecorex/user-python:3-slim
               docker.io/phasecorex/user-python:3.13-slim
-              docker.io/phasecorex/user-python:3-slim
             cache-from: ghcr.io/phasecorex/user-python:3.13-slim
           - base-image: python:3.13-alpine
             platforms: |-
@@ -71,9 +110,7 @@ jobs:
               linux/s390x
             tags: |-
               ghcr.io/phasecorex/user-python:3.13-alpine
-              ghcr.io/phasecorex/user-python:3-alpine
               docker.io/phasecorex/user-python:3.13-alpine
-              docker.io/phasecorex/user-python:3-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.13-alpine
           - base-image: python:3.12
             platforms: |-
