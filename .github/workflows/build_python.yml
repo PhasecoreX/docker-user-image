@@ -223,47 +223,10 @@ jobs:
               ghcr.io/phasecorex/user-python:3.10-alpine
               docker.io/phasecorex/user-python:3.10-alpine
             cache-from: ghcr.io/phasecorex/user-python:3.10-alpine
-          - base-image: python:3.9
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-python:3.9
-              docker.io/phasecorex/user-python:3.9
-            cache-from: ghcr.io/phasecorex/user-python:3.9
-          - base-image: python:3.9-slim
-            platforms: |-
-              linux/amd64
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-python:3.9-slim
-              docker.io/phasecorex/user-python:3.9-slim
-            cache-from: ghcr.io/phasecorex/user-python:3.9-slim
-          - base-image: python:3.9-alpine
-            platforms: |-
-              linux/amd64
-              linux/arm/v6
-              linux/arm/v7
-              linux/arm64
-              linux/386
-              linux/ppc64le
-              linux/s390x
-            tags: |-
-              ghcr.io/phasecorex/user-python:3.9-alpine
-              docker.io/phasecorex/user-python:3.9-alpine
-            cache-from: ghcr.io/phasecorex/user-python:3.9-alpine
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
