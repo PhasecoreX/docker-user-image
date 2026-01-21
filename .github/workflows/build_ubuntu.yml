@@ -58,10 +58,23 @@ jobs:
               docker.io/phasecorex/user-ubuntu:noble
               docker.io/phasecorex/user-ubuntu:latest
             cache-from: ghcr.io/phasecorex/user-ubuntu:24.04
+          - base-image: ubuntu:26.04
+            platforms: |-
+              linux/amd64
+              linux/arm/v7
+              linux/arm64
+              linux/ppc64le
+              linux/s390x
+            tags: |-
+              ghcr.io/phasecorex/user-ubuntu:26.04
+              ghcr.io/phasecorex/user-ubuntu:resolute
+              docker.io/phasecorex/user-ubuntu:26.04
+              docker.io/phasecorex/user-ubuntu:resolute
+            cache-from: ghcr.io/phasecorex/user-ubuntu:26.04
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
